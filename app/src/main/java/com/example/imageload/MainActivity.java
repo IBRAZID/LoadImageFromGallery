@@ -9,21 +9,29 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
+
 import androidx.annotation.Nullable;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 public class MainActivity extends Activity {
+
     private static final int GALLERY_REQUEST_CODE = 100;
     private ImageView imageView;
     private Button selectImageButton;
+    private EditText etA;
+    private EditText etB;
+private Button btnCalculate;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        connectComponents();
         imageView = findViewById(R.id.imageView);
         selectImageButton = findViewById(R.id.selectImageButton);
 
@@ -33,6 +41,12 @@ public class MainActivity extends Activity {
                 openGallery();
             }
         });
+    }
+
+    private void connectComponents() {
+        etA=findViewById(R.id.etAMain);
+        etB=findViewById(R.id.etBMain);
+        btnCalculate=findViewById(R.id.btnCalculateMain);
     }
 
     private void openGallery() {
@@ -54,6 +68,14 @@ public class MainActivity extends Activity {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void gotoCalculatePhytagoras(View view) {
+        Double A= Double.valueOf(etA.getText().toString());
+        Double B= Double.valueOf(etB.getText().toString());
+        Double Result=Math.sqrt(Math.pow(A,2)+Math.pow(B,2));
+        Toast.makeText(this, "The Answer Is:"+Result, Toast.LENGTH_LONG).show();
+
     }
 }
 
